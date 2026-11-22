@@ -2,7 +2,7 @@
 # Prepara todo lo necesario para editar reels y diseñar carruseles.
 # Uso: bash setup.sh            (básico)
 #      bash setup.sh --efectos  (además prepara los efectos de efectos/, opcional y más pesado)
-#      bash setup.sh --todo     (efectos + HyperFrames + skills-edicion + Watch, desde sus repositorios oficiales)
+#      bash setup.sh --todo     (efectos + HyperFrames + skills-edicion + Watch + earshot + real-sfx, desde sus repositorios oficiales)
 set -e
 cd "$(dirname "$0")"
 echo "1/4 · Paquetes de Python"
@@ -34,6 +34,12 @@ if [ "$1" = "--todo" ]; then
   pip install -q --break-system-packages yt-dlp 2>/dev/null || pip install -q yt-dlp
   [ -d $EXT/claude-video ] || git clone -q --depth 1 https://github.com/bradautomates/claude-video.git $EXT/claude-video
   rm -rf ~/.claude/skills/watch && cp -r $EXT/claude-video/skills/watch ~/.claude/skills/ && echo "   ok"
+  echo "Extra · earshot (sonidos realistas: 922 efectos, se generan por descripción)"
+  [ -d $EXT/earshot-venv ] || python3 -m venv $EXT/earshot-venv
+  $EXT/earshot-venv/bin/pip install -q "earshot @ git+https://github.com/Leonxlnx/earshot" >/dev/null 2>&1 && echo "   ok" || echo "   no se pudo instalar (seguí sin esto)"
+  echo "Extra · real-sfx (diseño de sonido con grabaciones reales de tu propia biblioteca)"
+  [ -d $EXT/clipwing-skills ] || git clone -q --depth 1 https://github.com/Clipwing/skills.git $EXT/clipwing-skills
+  rm -rf ~/.claude/skills/real-sfx && cp -r $EXT/clipwing-skills/skills/real-sfx ~/.claude/skills/ && echo "   ok"
   HS=$(ls -d /opt/pw-browsers/chromium_headless_shell-*/chrome-headless-shell-linux64 2>/dev/null | head -1)
   [ -n "$HS" ] && echo "   Para renderizar con HyperFrames: export PRODUCER_HEADLESS_SHELL_PATH=$HS/chrome-headless-shell HYPERFRAMES_BROWSER_PATH=$HS/chrome-headless-shell"
 fi

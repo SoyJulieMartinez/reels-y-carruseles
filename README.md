@@ -54,7 +54,7 @@ Claude instala todo solo al empezar cada chat (la primera vez tarda unos minutos
 - **Hook de portada:** completo desde el primer cuadro, para que se lea en el feed.
 - **Efectos que terminan justo en los cortes de cámara**, así las transiciones quedan prolijas.
 - **Tu tipografía:** se baja sola de Google Fonts, cualquier familia.
-- **Sonidos propios:** pop, swish, ding y teclado, sintetizados sin derechos de autor.
+- **Sonidos:** pop, swish, ding y teclado listos para usar, y sonidos realistas de cualquier cosa con las herramientas extra.
 - **Te propone recursos:** un muestrario con 8 recursos aplicados a tu propio video y una tabla con opciones para cada momento, para que elijas.
 - **Opciones para elegir:** si no tenés referencias o dudás, te muestra 3 estilos aplicados a tu propio video o a tu propio texto.
 - **Revisión antes de mostrarte nada:** cuadros antes y después de cada transición, clips cortos y una lista de controles.
@@ -74,7 +74,7 @@ Requiere Python 3.10+ y ffmpeg con libass.
 
 ## Extras opcionales
 
-- `bash setup.sh --todo` suma además [HyperFrames](https://github.com/heygen-com/hyperframes), [skills-edicion](https://github.com/NexumAI-online/skills-edicion) y [Watch](https://github.com/bradautomates/claude-video), instalados desde sus repositorios oficiales (ver `docs/herramientas-extra.md`).
+- `bash setup.sh --todo` suma además [HyperFrames](https://github.com/heygen-com/hyperframes), [skills-edicion](https://github.com/NexumAI-online/skills-edicion) y [Watch](https://github.com/bradautomates/claude-video), [earshot](https://github.com/Leonxlnx/earshot) (sonidos realistas) y [real-sfx](https://github.com/Clipwing/skills) (diseño de sonido con tu biblioteca), instalados desde sus repositorios oficiales (ver `docs/herramientas-extra.md`).
 - `bash setup.sh --efectos` prepara la carpeta `efectos/`: texto detrás de la persona, recortes, marcos, widgets y 51 efectos en total (guía en `efectos/GUIA.md`).
 
 ## Licencia

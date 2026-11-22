@@ -23,7 +23,7 @@ r = Reel("crudo.mp4", "marca.json", fin=None, cortes=None)   # cortes=[(ini, fin
 | `r.icono(nombre, t0, t1, cx, cy, radio=58)` | Ícono suelto con los colores de la marca. 18 íconos: check, estrella, objetivo, personas, crecimiento, corazon, chat, reloj, casa, idea, dinero, camara, calendario, ubicacion, flecha, rayo, celular, regalo (`python3 -m kit.iconos iconos.png` los muestra). |
 | `r.barra_comentario(t0, palabra, t_escribe, t1=None)` | Caja de comentario que se "escribe" sola con la palabra clave del CTA. |
 | `r.subtitulos(palabras_json, corregir={}, enfasis=set(), mantener=set())` | Subtítulos por bloques; `enfasis` va en la tipografía de acento; `mantener` respeta mayúsculas. |
-| `r.sonido(t, tipo)` | `pop`, `swish`, `ding`, `tecla`, `enviar` (sintetizados, sin derechos de autor). |
+| `r.sonido(t, tipo)` | `pop`, `swish`, `ding`, `tecla`, `enviar`. Sintetizados, o realistas si earshot está instalado (`setup.sh --todo`); con earshot también acepta cualquier descripción en inglés (`"a camera shutter click"`). `Reel(..., sonidos="sintetizados")` fuerza los simples. |
 | `r.probar([t, ...])` | Imagen de prueba rápida en esos segundos, sin renderizar todo. |
 | `r.render("final.mp4")` | Render final 1080×1920, 30 fps, audio normalizado a −14 LUFS. Normaliza videos HDR de iPhone. |
 

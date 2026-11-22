@@ -52,8 +52,10 @@ def cortes_de_camara(src, umbral=0.25):
 
 
 class Reel:
-    def __init__(self, src, marca, carpeta=None, fin=None, cortes=None):
+    def __init__(self, src, marca, carpeta=None, fin=None, cortes=None, sonidos="auto"):
+        """sonidos: "auto" (realistas con earshot si está instalado, si no sintetizados) o "sintetizados"."""
         self.src = src
+        self.sonidos_modo = sonidos
         self.m = json.load(open(marca)) if isinstance(marca, str) else marca
         self.c = {k: v.lstrip("#") for k, v in self.m["colores"].items()}
         self.dir = carpeta or os.path.splitext(src)[0] + "_kit"
@@ -301,8 +303,32 @@ class Reel:
 
     # ------------------------------------------------------------------ sonidos
     def sonido(self, t, tipo, volumen=1.0):
-        """tipo: pop · swish · ding · tecla · enviar"""
+        """tipo: pop · swish · ding · tecla · enviar, o (con earshot instalado) una descripción en inglés,
+        por ejemplo "a camera shutter click" o "a soft whoosh"."""
         self.sonidos.append((t, tipo, volumen))
+
+    EARSHOT = {"pop": "a soft pop for a card appearing", "swish": "a soft whoosh transition",
+               "ding": "a soft success chime", "tecla": "a single keyboard key press",
+               "enviar": "a message sent swoosh"}
+
+    def _earshot(self, tipo, SR):
+        """Sonido realista con earshot (setup.sh --todo). Devuelve None si no está instalado o falla."""
+        import shutil, hashlib
+        exe = shutil.which("earshot") or os.path.expanduser("~/kit-rc-extras/earshot-venv/bin/earshot")
+        if not os.path.exists(exe) and not shutil.which("earshot"):
+            return None
+        desc = self.EARSHOT.get(tipo, tipo)
+        base = os.path.join(self.dir, "sfx_" + hashlib.md5(desc.encode()).hexdigest()[:8])
+        try:
+            if not os.path.exists(base + ".wav"):
+                subprocess.run([exe, "make", desc, "-o", base + "_raw.wav"], check=True, capture_output=True, timeout=180)
+                subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", base + "_raw.wav", "-ac", "1", "-ar", str(SR),
+                                "-sample_fmt", "s16", base + ".wav"], check=True)
+            w = wave.open(base + ".wav")
+            x = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32) / 32768
+            return 0.6 * x / max(1e-6, np.abs(x).max())
+        except Exception:
+            return None
 
     def _sintetizar(self):
         SR = 48000; rng = np.random.default_rng(3)
@@ -321,8 +347,15 @@ class Reel:
         S["tecla"] = 0.5 * x / np.abs(x).max()
         tt = t(0.18); f = 700 + 900 * (tt / 0.18); x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt / 0.06); x[:96] *= np.linspace(0, 1, 96)
         S["enviar"] = 0.45 * x / np.abs(x).max()
+        if self.sonidos_modo != "sintetizados":
+            for tipo in {x[1] for x in self.sonidos}:
+                real = self._earshot(tipo, SR)
+                if real is not None:
+                    S[tipo] = real
         pista = np.zeros(int(SR * self.dur) + SR)
         for t0, tipo, g in self.sonidos:
+            if tipo not in S:
+                continue  # descripción libre sin earshot instalado: se omite
             i = int(max(0, self.R(t0)) * SR); s = S[tipo] * g; pista[i:i + len(s)] += s[:max(0, len(pista) - i)]
         pista = np.clip(pista[:int(SR * self.dur)] * 0.3, -1, 1)
         out = os.path.join(self.dir, "sonidos.wav")

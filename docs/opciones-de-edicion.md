@@ -53,6 +53,8 @@ hook de portada, título escalonado (dos tipografías), etiquetas flotantes, tar
 - Redes y prueba social: comentario que se escribe, botón Seguir, notificaciones de mensajes, reels que giran o se acumulan detrás, grilla del perfil, contador de seguidores, gráfico que sube.
 - Cámara y clima: acercamiento a una palabra, acercamiento lento cinematográfico, foco de luz, gradación de color, antes y después con cortina, cuenta regresiva, sello, flecha dibujada.
 
+**Sonido (`setup.sh --todo`):** sonidos realistas descritos con palabras (earshot), o diseño de sonido completo con grabaciones reales de su biblioteca (real-sfx).
+
 **HyperFrames y skills-edicion (`setup.sh --todo`):** gráficos animados, tipografía cinética compleja, transiciones de catálogo, mockups animados.
 
 **Del catálogo (`docs/reels.md`):** los 45 formatos, como pantalla dividida, voz en off con b-roll, fotos tipo Polaroid, video en círculo con texto curvo, bandas de cine, reloj o placa de capítulo, reels flotando, stickers de marca.

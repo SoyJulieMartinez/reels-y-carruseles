@@ -18,6 +18,8 @@ Quedan en `~/kit-rc-extras/` y sus skills en `~/.claude/skills/`. Si alguna no s
 | Gráficos animados, tipografía cinética compleja, transiciones de catálogo, mockups animados, video armado desde una web | **HyperFrames** (`hyperframes` + `hyperframes-registry`) |
 | Tarjetas animadas prehechas, beats de video, cortes de silencios y errores con revisión | **skills-edicion** (`style-library`, `hyperframes-video-beats`, `cut-silences`, `cut-mistakes`) |
 | Diapositivas para una clase | `slideshow` (HyperFrames) |
+| Sonidos más realistas para el motor (pop, whoosh, teclas, clics, o cualquier sonido descrito) | **earshot** |
+| Diseño de sonido completo con grabaciones reales de la biblioteca de sonidos de la persona | **real-sfx** |
 
 ## Watch
 
@@ -36,6 +38,24 @@ El texto se toma de `kit.transcribir` (Watch transcribe solo con claves de servi
 - Para renderizar hace falta un navegador. `setup.sh --todo` imprime las variables `PRODUCER_HEADLESS_SHELL_PATH` y `HYPERFRAMES_BROWSER_PATH`: exportarlas en **cada** comando de render.
 - Su transcripción usa un servicio pago: usar `palabras.json` de `kit.transcribir` y convertirlo al formato que pida la skill.
 - Lo que dependa de servicios de HeyGen (avatares, voz generada) necesita cuenta y créditos propios.
+
+## earshot: sonidos realistas
+
+Genera efectos de sonido a partir de una descripción en inglés, con un catálogo de 922 diseños (muchos reconstruidos a partir de grabaciones de dominio público). Lo que genera se puede usar libremente.
+
+- Con `setup.sh --todo` el motor lo usa solo: `r.sonido(t, "pop")` deja de sonar sintético y pasa a sonar real. Para pedir cualquier otro sonido: `r.sonido(t, "a camera shutter click")`, `r.sonido(t, "cash register")`, `r.sonido(t, "a soft whoosh")`.
+- Para volver a los sonidos simples: `Reel(..., sonidos="sintetizados")`.
+- Suelto: `~/kit-rc-extras/earshot-venv/bin/earshot make "three soft notification pops" -o pop.wav`.
+- Escuchar y describir un sonido (`earshot describe`) necesita modelos de unos 2 GB: no se instalan por defecto.
+
+## real-sfx: diseño de sonido con la biblioteca de la persona
+
+Una skill que encuentra los momentos del video y pone en cada uno un sonido **grabado** de la biblioteca de la persona, en el cuadro exacto, sin tapar la voz ni la música. Devuelve un MP4 nuevo, una pista de efectos aparte en WAV (para Premiere o CapCut) y un informe.
+
+- Se instala con `setup.sh --todo` en `~/.claude/skills/real-sfx` y se usa leyendo su `SKILL.md`.
+- No trae biblioteca: la persona tiene que pasar sus sonidos (con derechos de uso). Para empezar, `--uisfx` suma 78 sonidos de interfaz libres (CC0). Fuentes gratuitas para armar una biblioteca: Freesound (filtro CC0), Mixkit, Pixabay, paquetes Sonniss GDC; revisar cada licencia.
+- Úsala como último paso, sobre el video ya editado y **sin** los sonidos del motor (`sonidos="sintetizados"` y sin llamar a `r.sonido`), para no duplicar.
+- Claude no escucha: la skill elige por medidas y al final indica 5 momentos para que la persona escuche y confirme.
 
 ## Cómo combinar con el motor
 
