@@ -1,0 +1,6 @@
+faster-whisper
+fonttools
+pillow
+numpy
+playwright
+img2pdf

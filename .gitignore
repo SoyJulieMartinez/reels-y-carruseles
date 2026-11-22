@@ -1,0 +1,10 @@
+
+*.mov
+*.mp4
+*.pyc
+*.wav
+.env
+.venv/
+__pycache__/
+_trabajo/
+salida/

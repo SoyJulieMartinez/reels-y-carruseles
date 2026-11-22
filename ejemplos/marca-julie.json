@@ -1,0 +1,23 @@
+{
+  "nombre": "Julie Martínez",
+  "usuario": "@soyjuliemartinez",
+  "colores": {
+    "claro": "#f4efe9",
+    "blanco": "#ffffff",
+    "acento_suave": "#ebcdcb",
+    "medio": "#d6a5a7",
+    "acento": "#a9666b",
+    "oscuro": "#2f2a2b"
+  },
+  "tipografias": {
+    "sans": "Poppins",
+    "acento": "Cormorant Garamond"
+  },
+  "subtitulos": {
+    "palabras": 3,
+    "tamano": 110,
+    "y": 1250,
+    "mayusculas": false,
+    "resaltar_activa": true
+  }
+}

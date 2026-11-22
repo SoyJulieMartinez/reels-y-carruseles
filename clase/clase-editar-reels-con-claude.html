@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Editá tus reels con Claude · Julie Martínez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--lino:#f4efe9;--blanco:#fff;--blush:#ebcdcb;--rosa:#d6a5a7;--palo:#a9666b;--carbon:#2f2a2b;--suave:#5e5254;--on:#f4efe9;
+--sans:"Poppins",sans-serif;--serif:"Cormorant Garamond",Georgia,serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{display:flex;flex-direction:column;font-family:var(--sans);color:var(--carbon);background:var(--lino)}
+.ticker{flex:0 0 auto;background:var(--carbon);color:var(--on);overflow:hidden;white-space:nowrap;height:34px;display:flex;align-items:center}
+.ticker div{display:inline-block;animation:tk 40s linear infinite;font-family:var(--serif);font-size:19px;font-weight:300;letter-spacing:.02em}
+.ticker span{padding:0 22px}.ticker b{color:var(--blush);font-weight:300}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+#deck{flex:1;min-height:0;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+.slide{height:100%;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:5vh 8vw;position:relative;overflow:hidden;text-align:center}
+.zone-lino{background:var(--lino)}.zone-blanco{background:var(--blanco)}.zone-blush{background:var(--blush)}
+.zone-rosa{background:var(--rosa)}.zone-carbon{background:var(--carbon);color:var(--on)}
+.zone-carbon .sub,.zone-carbon .txt{color:#d9cfc9}.zone-carbon em{color:var(--blush)}
+.zone-rosa em{color:var(--carbon)}
+.eyebrow{font-size:clamp(13px,1.1vw,17px);font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--palo);margin-bottom:2.4vh}
+.zone-carbon .eyebrow{color:var(--blush)}.zone-rosa .eyebrow,.zone-blush .eyebrow{color:var(--carbon)}
+.hero{font-family:var(--serif);font-weight:300;font-size:clamp(54px,7.4vw,132px);line-height:.98;letter-spacing:-.02em;max-width:1300px;text-wrap:balance}
+.titulo{font-family:var(--serif);font-weight:300;font-size:clamp(44px,5.2vw,92px);line-height:1.02;letter-spacing:-.015em;max-width:1250px;text-wrap:balance}
+em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--palo)}
+.sub{font-family:var(--serif);font-style:italic;font-size:clamp(24px,2.3vw,40px);color:var(--suave);margin-top:3vh;max-width:1100px;text-wrap:balance}
+.txt{font-size:clamp(19px,1.8vw,32px);line-height:1.55;color:var(--suave);max-width:1250px;margin-top:2.6vh}
+.num-section{font-family:var(--serif);font-weight:300;font-size:clamp(120px,16vw,280px);line-height:.8;color:var(--palo);opacity:.9;margin-bottom:4vh;font-variant-numeric:lining-nums}
+.zone-carbon .num-section{color:var(--blush)}
+.lista{list-style:none;text-align:left;margin-top:4vh;display:grid;gap:2.2vh;max-width:1400px}
+.lista li{display:flex;gap:1.6vw;align-items:baseline;font-size:clamp(22px,2.3vw,46px);line-height:1.3}
+.lista li b{font-family:var(--serif);font-weight:400;font-style:italic;color:var(--palo);font-size:1.35em;min-width:1.6em}
+.zone-carbon .lista li b{color:var(--blush)}
+.cols{display:grid;grid-template-columns:repeat(var(--n,3),1fr);gap:2vw;margin-top:5vh;width:100%;max-width:1400px}
+.card{background:var(--blanco);border-radius:26px;padding:3.4vh 2vw;text-align:left;box-shadow:0 10px 30px rgba(47,42,43,.07)}
+.zone-blanco .card{background:var(--lino)}
+.zone-carbon .card{background:#3a3435;color:var(--on)}
+.card .k{font-family:var(--serif);font-style:italic;font-size:clamp(30px,2.6vw,48px);color:var(--palo);line-height:1}
+.zone-carbon .card .k{color:var(--blush)}
+.card .h{font-family:var(--serif);font-weight:400;font-size:clamp(28px,2.6vw,50px);line-height:1.1;margin:1.4vh 0 1vh}
+.card p{font-size:clamp(17px,1.5vw,28px);line-height:1.5;color:var(--suave)}
+.zone-carbon .card p{color:#d9cfc9}
+.pill{display:inline-block;background:var(--blanco);border-radius:999px;padding:1.4vh 1.8vw;font-weight:500;font-size:clamp(18px,1.75vw,32px);margin:.7vh .4vw;box-shadow:0 6px 18px rgba(169,102,107,.18)}
+.zone-blanco .pill{background:var(--lino)}
+.prompt{background:var(--carbon);color:var(--on);border-radius:24px;padding:3.5vh 2.6vw;text-align:left;font-size:clamp(17px,1.55vw,29px);line-height:1.55;max-width:1400px;margin-top:3.5vh;white-space:pre-wrap}
+.prompt b{color:var(--blush);font-weight:500}
+.formula{display:flex;gap:1.2vw;flex-wrap:wrap;justify-content:center;margin-top:4vh}
+.formula span{font-family:var(--serif);font-size:clamp(34px,3.4vw,62px);font-weight:300}
+.formula i{font-family:var(--serif);font-style:italic;color:var(--palo);font-size:clamp(34px,3.4vw,62px)}
+.ejemplo{margin-top:4vh;background:var(--blanco);border-radius:24px;padding:3vh 2.4vw;max-width:1300px;font-size:clamp(20px,2vw,38px);line-height:1.5;text-align:left}
+.ejemplo s{color:#9b8f8d}
+/* teléfono con zonas seguras */
+.phone{height:66vh;aspect-ratio:9/16;border-radius:34px;background:#ddd5ce;position:relative;overflow:hidden;border:8px solid var(--carbon);box-shadow:0 20px 50px rgba(0,0,0,.15)}
+.phone .z{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;font-size:clamp(11px,.9vw,15px);font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.phone .top{top:0;height:14.5%;background:rgba(169,102,107,.45);color:#fff}
+.phone .bot{bottom:0;height:17.5%;background:rgba(169,102,107,.45);color:#fff}
+.phone .right{top:14.5%;bottom:17.5%;right:0;left:auto;width:11%;background:rgba(169,102,107,.3)}
+.phone .feed{top:14.8%;bottom:14.8%;left:4%;right:4%;border:2px dashed var(--carbon);background:transparent;color:var(--carbon);align-items:flex-start;padding-top:6px}
+.phone .face{position:absolute;left:30%;right:30%;top:30%;height:24%;border-radius:50%;background:#c9b8ad}
+.phone .subs{position:absolute;left:12%;right:12%;top:60%;text-align:center;font-weight:800;font-size:clamp(12px,1.1vw,18px);color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.split{display:grid;grid-template-columns:auto 1fr;gap:5vw;align-items:center;max-width:1400px;width:100%;text-align:left}
+.split .lista{margin-top:2vh}
+/* demo de título pegado */
+.demo{position:relative;margin-top:5vh;padding:4vh 4vw;background:var(--lino);border-radius:28px}
+.demo .a{font-family:var(--sans);font-weight:600;font-size:clamp(30px,3vw,54px);display:block;text-align:left;margin-left:-4vw}
+.demo .b{font-family:var(--serif);font-style:italic;font-size:clamp(80px,8vw,150px);color:var(--palo);display:block;line-height:.8;margin-top:-.15em;text-align:right;margin-right:-4vw}
+.mal .a{margin:0}.mal .b{margin-top:4vh;text-align:center;margin-right:0}
+.tag{display:inline-block;margin-top:2vh;font-size:clamp(13px,1vw,17px);font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--palo)}
+.check{list-style:none;text-align:left;margin-top:4vh;display:grid;gap:1.8vh;max-width:1400px}
+.check li{font-size:clamp(21px,2.1vw,40px);display:flex;gap:1.2vw;align-items:center}
+.check li:before{content:"✓";flex:0 0 auto;width:1.6em;height:1.6em;border-radius:50%;background:var(--blush);color:var(--palo);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8em}
+.zone-blush .check li:before{background:var(--blanco)}
+.big-quote{font-family:var(--serif);font-weight:300;font-size:clamp(60px,8vw,150px);line-height:.95;letter-spacing:-.02em}
+/* chrome fijo */
+#dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:7px;z-index:10}
+#dots i{width:7px;height:7px;border-radius:50%;background:rgba(47,42,43,.25);cursor:pointer}
+#dots i.on{background:var(--palo);transform:scale(1.4)}
+#nav{position:fixed;right:22px;bottom:18px;display:flex;gap:8px;z-index:10}
+#nav button{width:42px;height:42px;border-radius:50%;border:none;background:var(--carbon);color:var(--on);font-size:18px;cursor:pointer;opacity:.85}
+#firma{position:fixed;left:22px;bottom:18px;background:var(--blanco);color:var(--carbon);border-radius:999px;padding:9px 18px;font-size:13px;font-weight:500;letter-spacing:.04em;z-index:10;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+#firma em{font-size:16px}
+#count{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);font-size:12px;letter-spacing:.2em;color:rgba(47,42,43,.45);z-index:10}
+.reveal{opacity:0;transform:translateY(18px);transition:all .7s ease}
+.slide.vis .reveal{opacity:1;transform:none}
+.slide.vis .reveal.d2{transition-delay:.15s}.slide.vis .reveal.d3{transition-delay:.3s}.slide.vis .reveal.d4{transition-delay:.45s}
+</style></head><body>
+<div class="ticker"><div><span>Editá con Claude</span><span><b>✦</b></span><span>Vos grabás</span><span><b>✦</b></span><span>Claude edita</span><span><b>✦</b></span><span>Vos dirigís</span><span><b>✦</b></span><span>Tu estilo, tus reglas</span><span><b>✦</b></span><span>Editá con Claude</span><span><b>✦</b></span><span>Vos grabás</span><span><b>✦</b></span><span>Claude edita</span><span><b>✦</b></span><span>Vos dirigís</span><span><b>✦</b></span><span>Tu estilo, tus reglas</span><span><b>✦</b></span><span>Editá con Claude</span><span><b>✦</b></span><span>Vos grabás</span><span><b>✦</b></span><span>Claude edita</span><span><b>✦</b></span><span>Vos dirigís</span><span><b>✦</b></span><span>Tu estilo, tus reglas</span><span><b>✦</b></span><span>Editá con Claude</span><span><b>✦</b></span><span>Vos grabás</span><span><b>✦</b></span><span>Claude edita</span><span><b>✦</b></span><span>Vos dirigís</span><span><b>✦</b></span><span>Tu estilo, tus reglas</span><span><b>✦</b></span></div></div>
+<main id="deck">
+<section class="slide zone-lino" >
+<div class="eyebrow reveal">Clase en vivo · 2 horas</div>
+<h1 class="hero reveal d2">Editá tus reels <em>con Claude</em></h1>
+<p class="sub reveal d3">Vos grabás. Claude edita. Vos dirigís.</p>
+<p class="tag reveal d4">Julie Martínez · @soyjuliemartinez</p>
+</section>
+<section class="slide zone-carbon" >
+<div class="eyebrow reveal">¿Te pasa esto?</div>
+<ul class="lista reveal d2">
+<li><b>01</b>Pasás horas editando un solo video.</li>
+<li><b>02</b>Dependés de otra persona para editar.</li>
+<li><b>03</b>Tus videos no se ven como los imaginás.</li>
+<li><b>04</b>Probaste editar con IA y te salió algo genérico.</li>
+</ul>
+</section>
+<section class="slide zone-blanco" >
+<div class="eyebrow reveal">La idea de hoy</div>
+<h2 class="titulo reveal d2">No vas a aprender a editar.<br>Vas a aprender a <em>dirigir</em> a tu editor.</h2>
+</section>
+<section class="slide zone-blush" >
+<div class="eyebrow reveal">Lo que vamos a ver</div>
+<div class="cols reveal d2" style="--n:3">
+<div class="card"><div class="k">01</div><div class="h">Grabarte bien</div><p>Lo más importante de todo.</p></div>
+<div class="card"><div class="k">02</div><div class="h">Tu estilo</div><p>Para que no salga un video genérico.</p></div>
+<div class="card"><div class="k">03</div><div class="h">Las reglas</div><p>Lo que hace que un reel se vea profesional.</p></div>
+<div class="card"><div class="k">04</div><div class="h">Tu editor en Claude</div><p>El paso a paso para armarlo hoy.</p></div>
+<div class="card"><div class="k">05</div><div class="h">Pedir cambios</div><p>Cómo corregir como directora.</p></div>
+<div class="card"><div class="k">06</div><div class="h">Formatos</div><p>Ideas para que cada reel sea distinto.</p></div>
+</div>
+</section>
+<section class="slide zone-carbon" >
+<div class="num-section reveal">01</div>
+<h2 class="titulo reveal d2">Lo más importante es <em>la grabación</em></h2>
+<p class="sub reveal d3">La edición la hace Claude. Lo que no se puede arreglar después es una mala toma.</p>
+</section>
+<section class="slide zone-lino" >
+<div class="eyebrow reveal">Luz</div>
+<h2 class="titulo reveal d2">Luz natural, <em>de frente o de costado</em></h2>
+<ul class="lista reveal d3">
+<li><b>✓</b>Ponete mirando a la ventana, o con la ventana a un costado.</li>
+<li><b>✕</b>Nunca de espaldas a la ventana: quedás en sombra.</li>
+<li><b>✓</b>Si grabás de noche, una luz suave frente a vos.</li>
+</ul>
+</section>
+<section class="slide zone-blanco" >
+<div class="eyebrow reveal">Fondo</div>
+<h2 class="titulo reveal d2">Un fondo con algo de interés, <em>pero ordenado</em></h2>
+<p class="txt reveal d3">Una planta, un cuadro, una biblioteca. Ni una pared vacía ni un lugar desordenado: el fondo también habla de tu marca.</p>
+</section>
+<section class="slide zone-rosa" >
+<div class="eyebrow reveal">Encuadre</div>
+<div class="split">
+<div class="phone reveal d2"><div class="face"></div><div class="z top">aire para el título</div></div>
+<ul class="lista reveal d3">
+<li><b>1</b>Siempre vertical (9:16).</li>
+<li><b>2</b>Activá la grilla de la cámara.</li>
+<li><b>3</b>Tus ojos en el tercio de arriba.</li>
+<li><b>4</b>Dejá aire arriba de tu cabeza para el título.</li>
+<li><b>5</b>Celular a la altura de los ojos, en un trípode.</li>
+</ul>
+</div>
+</section>
+<section class="slide zone-lino" >
+<div class="eyebrow reveal">Sonido</div>
+<h2 class="titulo reveal d2">Se perdona una imagen regular. <em>Un mal audio, no.</em></h2>
+<ul class="lista reveal d3">
+<li><b>✓</b>Si podés, usá un micrófono inalámbrico o corbatero.</li>
+<li><b>✓</b>Si no, grabá en un lugar silencioso y cerca del celular.</li>
+<li><b>✓</b>Evitá lugares con eco: ambientes vacíos, baños, cocinas.</li>
+</ul>
+</section>
+<section class="slide zone-blush" >
+<div class="eyebrow reveal">Cámara</div>
+<div class="cols reveal d2" style="--n:3">
+<div class="card"><div class="k">Lente</div><div class="h">Limpiala antes de grabar</div><p>Un paño y listo. La diferencia se nota.</p></div>
+<div class="card"><div class="k">Calidad</div><div class="h">Cámara trasera si podés</div><p>Graba con más calidad que la de selfie.</p></div>
+<div class="card"><div class="k">iPhone</div><div class="h">Video HDR apagado</div><p>En los ajustes de cámara. Si no, en Instagram se ve lavado.</p></div>
+</div>
+</section>
+<section class="slide zone-carbon" >
+<div class="eyebrow reveal">Al grabar</div>
+<ul class="lista reveal d2">
+<li><b>1</b>Un segundo de silencio antes de empezar y al terminar.</li>
+<li><b>2</b>Tené a mano los puntos de lo que vas a decir.</li>
+<li><b>3</b>Mirá al lente, no a la pantalla.</li>
+<li><b>4</b>Si te equivocás, hacé una pausa y repetí la frase entera.</li>
+<li><b>5</b>Arrancá con tu frase gancho: los primeros 3 segundos deciden todo.</li>
+</ul>
+</section>
+<section class="slide zone-blanco" >
+<div class="eyebrow reveal">Tu banco de tomas de apoyo</div>
+<h2 class="titulo reveal d2">Una hora de grabación, <em>material para un mes</em></h2>
+<p class="txt reveal d3">Hacé una lista de planos (tus manos trabajando, tu escritorio, un café, caminando) y grabalos todos juntos. Con unos 30 clips cortos tenés para voz en off, historias y para tapar cortes.</p>
+</section>
+<section class="slide zone-lino" >
+<div class="eyebrow reveal">Orden</div>
+<h2 class="titulo reveal d2">Cada video en su carpeta</h2>
+<div class="reveal d3" style="margin-top:4vh">
+<span class="pill">📁 Reel sin editar 1</span><span class="pill">📁 Reel sin editar 2</span><span class="pill">📁 Reel sin editar 3</span>
+</div>
+<p class="txt reveal d4">Así nunca mezclás material ni perdés una toma.</p>
+</section>
+<section class="slide zone-rosa" >
+<div class="num-section reveal">02</div>
+<h2 class="titulo reveal d2">Tu estilo, <em>antes que la IA</em></h2>
+</section>
+<section class="slide zone-blanco" >
+<div class="eyebrow reveal">Por qué la IA edita genérico</div>
+<h2 class="titulo reveal d2">Si no le das tu estilo, <em>te da el promedio.</em></h2>
+<p class="sub reveal d3">La prueba: si tapás tu @, ¿se nota que el video es tuyo?</p>
+</section>
+<section class="slide zone-blush" >
+<div class="eyebrow reveal">Tu ficha de estilo</div>
+<div class="reveal d2" style="max-width:1200px">
+<span class="pill">Colores</span><span class="pill">Tipografías</span><span class="pill">Tono: vos, tú o usted</span><span class="pill">Cómo son tus subtítulos</span>
+<span class="pill">Movimiento: suave o enérgico</span><span class="pill">Íconos y stickers</span><span class="pill">Formatos favoritos</span><span class="pill">Lo que no querés ver nunca</span>
+</div>
+<p class="sub reveal d3">Se completa una vez y la usás en todos tus videos.</p>
+</section>
+<section class="slide zone-carbon" >
+<div class="eyebrow reveal">Las referencias</div>
+<h2 class="titulo reveal d2">De otros videos copiamos <em>el estilo</em>, nunca sus colores ni sus fuentes.</h2>
+<p class="txt reveal d3">Cómo combinan las letras, el ritmo, el tipo de placas. Todo se traduce a tu marca.</p>
+</section>
+<section class="slide zone-lino" >
+<div class="num-section reveal">03</div>
+<h2 class="titulo reveal d2">Las reglas de un reel <em>profesional</em></h2>
+</section>
+<section class="slide zone-blanco" >
+<div class="eyebrow reveal">Zonas seguras</div>
+<div class="split">
+<div class="phone reveal d2"><div class="z top">usuario · audio</div><div class="z feed">recorte del feed 4:5</div><div class="z right"></div><div class="face"></div><div class="subs">tus subtítulos acá</div><div class="z bot">texto del posteo</div></div>
+<ul class="lista reveal d3">
+<li><b>↑</b>Arriba, dejá libre la zona del usuario.</li>
+<li><b>↓</b>Abajo, la del texto del posteo.</li>
+<li><b>→</b>A la derecha están los botones: nada importante ahí.</li>
+<li><b>◎</b>Tu cara y tu hook, en el centro: es lo que se ve en el feed.</li>
+</ul>
+</div>
+</section>
+<section class="slide zone-carbon" >
+<div class="eyebrow reveal">El hook</div>
+<h2 class="titulo reveal d2">Los primeros 3 segundos <em>son tu portada</em></h2>
+<p class="txt reveal d3">La frase gancho tiene que estar completa desde el primer cuadro, porque ese cuadro queda como portada en tu feed.</p>
+<div class="demo reveal d4" style="background:#3a3435;margin-top:4vh"><span class="a" style="color:var(--on)">tu presencia digital es</span><span class="b" style="color:var(--blush)">malísima</span></div>
+</section>
+<section class="slide zone-blush" >
+<div class="eyebrow reveal">Fórmulas de hook</div>
+<div class="cols reveal d2" style="--n:3">
+<div class="card"><div class="k">Contraste</div><p>“39 seguidores y va a ser speaker”</p></div>
+<div class="card"><div class="k">Error común</div><p>“Estás perdiendo ventas por esto”</p></div>
+<div class="card"><div class="k">Promesa</div><p>“3 pasos para…”</p></div>
+<div class="card"><div class="k">Pregunta</div><p>“¿Tu bio dice qué vendés?”</p></div>
+<div class="card"><div class="k">Resultado</div><p>Empezá por el final</p></div>
+<div class="card"><div class="k">Curiosidad</div><p>“Nadie te cuenta esto de…”</p></div>
+</div>
+</section>
+<section class="slide zone-blanco" >
+<div class="eyebrow reveal">Subtítulos</div>
+<h2 class="titulo reveal d2">Grandes, cortos y <em>debajo del mentón</em></h2>
+<ul class="lista reveal d3">
+<li><b>1</b>De 2 a 3 palabras por vez.</li>
+<li><b>2</b>Bien grandes: se miran en un celular.</li>
+<li><b>3</b>Siempre con contraste, nunca tapando tu cara.</li>
+<li><b>4</b>La palabra clave, con tu color o tu tipografía de acento.</li>
+</ul>
+</section>
+<section class="slide zone-lino" >
+<div class="eyebrow reveal">Títulos</div>
+<h2 class="titulo reveal d2">Dos líneas <em>pegadas</em>, nunca separadas</h2>
+<div class="cols reveal d3" style="--n:2;max-width:1200px">
+<div><p class="tag">Así no</p><div class="demo mal" style="background:var(--blanco)"><span class="a">39 seguidores</span><span class="b">speaker</span></div></div>
+<div><p class="tag">Así sí</p><div class="demo" style="background:var(--blanco)"><span class="a">39 seguidores</span><span class="b">speaker</span></div></div>
+</div>
+</section>
+<section class="slide zone-rosa" >
+<div class="eyebrow reveal">Ritmo y cierre</div>
+<h2 class="titulo reveal d2">Algo cambia cada <em>2 a 4 segundos</em></h2>
+<p class="txt reveal d3" style="color:var(--carbon)">Un corte, un zoom, un texto, una tarjeta. Y al final, una sola acción: comentar, guardar, seguir o escribirte.</p>
+</section>
+<section class="slide zone-carbon" >
+<div class="num-section reveal">04</div>
+<h2 class="titulo reveal d2">Armemos <em>tu editor</em> en Claude</h2>
+<p class="sub reveal d3">Claude instala todo solo.</p>
+</section>
+<section class="slide zone-blanco" >
+<div class="eyebrow reveal">Tu editor tiene tres piezas</div>
+<div class="cols reveal d2" style="--n:3">
+<div class="card"><div class="k">1</div><div class="h">Tus recursos de marca</div><p>Brand kit, logo, tipografías, stickers y tomas de apoyo.</p></div>
+<div class="card"><div class="k">2</div><div class="h">Las instrucciones</div><p>El prompt que le dice a Claude cómo trabajar.</p></div>
+<div class="card"><div class="k">3</div><div class="h">La guía de edición</div><p>El sistema de reglas (en GitHub) y tu ficha de estilo.</p></div>
+</div>
+<p class="sub reveal d3">Si falta una, el video sale genérico.</p>
+</section>
+<section class="slide zone-blush" >
+<div class="eyebrow reveal">Paso a paso</div>
+<ul class="lista reveal d2">
+<li><b>1</b>Activá “Crear y editar archivos” en la configuración de Claude.</li>
+<li><b>2</b>Creá un Proyecto: “Mi editor de reels”.</li>
+<li><b>3</b>Completá tu ficha de estilo.</li>
+<li><b>4</b>Subí al Proyecto tu ficha y tu brand kit.</li>
+<li><b>5</b>Pegá las instrucciones: Claude descarga el sistema solo en cada chat.</li>
+</ul>
+</section>
+<section class="slide zone-lino" >
+<div class="eyebrow reveal">El prompt de tu Proyecto</div>
+<div class="prompt reveal d2"><b>Sos mi editora de reels y diseñadora de carruseles.</b> Al empezar cada chat, descargás el sistema desde GitHub y lo seguís, con mi estilo del archivo MI-FICHA-DE-ESTILO.
+
+· Respetás siempre las reglas fijas: zonas seguras, hook completo desde el primer cuadro, subtítulos grandes y una sola acción al cierre.
+· Usás solo mis colores y mis tipografías.
+· No cambiás lo que digo ni el texto de mis carruseles.
+· Si no sé qué recursos usar, me mostrás opciones sobre mi propio video.
+· Antes de mostrarme algo, lo revisás vos.
+· Cuando apruebo, actualizás mi ficha de estilo.
+
+<b>Mi objetivo:</b> que mis videos se reconozcan como míos aunque se tape mi @.</div>
+<p class="txt reveal d3">El texto completo está en <b>plantillas/instrucciones-del-proyecto.txt</b>.</p>
+</section>
+<section class="slide zone-carbon" >
+<div class="eyebrow reveal">Tu primer pedido</div>
+<div class="prompt reveal d2" style="background:#3a3435">Editá este video.
+· ¿Ya corté los silencios?: <b>sí / no</b>
+· Objetivo: <b>educar / vender / contar una historia / anunciar</b>
+· Hook que me gustaría: <b>…</b>
+· Recursos que te adjunto: <b>capturas, fotos, flyer, música</b>
+· Llamado a la acción del final: <b>…</b>
+· Nombres que tienen que estar bien escritos: <b>…</b></div>
+</section>
+<section class="slide zone-rosa" >
+<div class="eyebrow reveal">En vivo</div>
+<h2 class="hero reveal d2">Editemos <em>uno juntas</em></h2>
+</section>
+<section class="slide zone-blanco" >
+<div class="num-section reveal">05</div>
+<h2 class="titulo reveal d2">Pedí cambios <em>como directora</em></h2>
+</section>
+<section class="slide zone-lino" >
+<div class="eyebrow reveal">La fórmula</div>
+<div class="formula reveal d2"><span>dónde</span><i>+</i><span>qué</span><i>+</i><span>cómo lo querés</span><i>+</i><span>por qué</span></div>
+<div class="ejemplo reveal d3"><s>“No me gusta.”</s><br>“En el segundo 2, el hook se ve chico: hacelo el doble de grande porque es lo primero que leen.”</div>
+</section>
+<section class="slide zone-blush" >
+<div class="eyebrow reveal">Antes de pedir cambios, revisá</div>
+<ul class="check reveal d2">
+<li>El hook se ve completo y se entiende sin audio.</li>
+<li>Ningún texto tapa tu cara ni queda debajo de los botones.</li>
+<li>Los subtítulos se leen bien en todo el video.</li>
+<li>Los nombres y las palabras están bien escritos.</li>
+<li>Solo hay colores y tipografías de tu marca.</li>
+<li>El cierre pide una sola acción.</li>
+</ul>
+</section>
+<section class="slide zone-carbon" >
+<div class="eyebrow reveal">Cuando te guste</div>
+<h2 class="titulo reveal d2">“Aprobado. <em>Actualizá mi ficha</em> con lo que aprendiste.”</h2>
+<p class="sub reveal d3">Así cada video sale más tuyo que el anterior.</p>
+</section>
+<section class="slide zone-rosa" >
+<div class="num-section reveal">06</div>
+<h2 class="titulo reveal d2">Formatos para que <em>cada reel sea distinto</em></h2>
+</section>
+<section class="slide zone-blanco" >
+<div class="eyebrow reveal">Algunos de los formatos del catálogo</div>
+<div class="reveal d2" style="max-width:1300px">
+<span class="pill">Tipografía en movimiento</span><span class="pill">Tarjetas flotantes</span><span class="pill">Pantalla dividida</span><span class="pill">Fondo desenfocado + lista</span>
+<span class="pill">Checklist animado</span><span class="pill">Placa a pantalla completa</span><span class="pill">Antes y después</span><span class="pill">Burbujas de comentarios</span>
+<span class="pill">Ranking</span><span class="pill">Verdadero o falso</span><span class="pill">Voz en off</span><span class="pill">Barra de comentario como cierre</span>
+</div>
+<p class="sub reveal d3">Un formato base + 2 a 4 recursos por video.</p>
+</section>
+<section class="slide zone-lino" >
+<div class="eyebrow reveal">Según tu objetivo</div>
+<div class="cols reveal d2" style="--n:4">
+<div class="card"><div class="k">Educar</div><p>Lista con íconos, paso a paso, grabación de pantalla.</p></div>
+<div class="card"><div class="k">Vender</div><p>Tarjetas con capturas, testimonios, resultados y un cierre claro.</p></div>
+<div class="card"><div class="k">Contar</div><p>Voz en off, tomas de apoyo, ritmo más lento.</p></div>
+<div class="card"><div class="k">Anunciar</div><p>El flyer como tarjeta, fecha en una etiqueta.</p></div>
+</div>
+</section>
+<section class="slide zone-blush" >
+<div class="eyebrow reveal">Extras</div>
+<div class="cols reveal d2" style="--n:2;max-width:1150px">
+<div class="card"><div class="k">Sonidos</div><div class="h">Un pop, un swish, un clic</div><p>Cuando aparece una tarjeta o un título. Bien por debajo de tu voz.</p></div>
+<div class="card"><div class="k">Versiones</div><div class="h">Del mismo video, varias pruebas</div><p>Cambiando solo el hook o el formato, para ver cuál funciona mejor.</p></div>
+</div>
+</section>
+<section class="slide zone-blanco" >
+<div class="eyebrow reveal">¿No sabés qué elegir?</div>
+<h2 class="titulo reveal d2">Claude te muestra <em>opciones</em></h2>
+<div class="cols reveal d3" style="--n:3;max-width:1300px">
+<div class="card"><div class="k">1</div><div class="h">Muestrario</div><p>8 recursos aplicados a tu propio video, numerados para elegir.</p></div>
+<div class="card"><div class="k">2</div><div class="h">Propuesta</div><p>Una tabla con una opción recomendada para cada momento de tu video.</p></div>
+<div class="card"><div class="k">3</div><div class="h">Vos elegís</div><p>“Vamos con las recomendadas” o “cambiá la 3 por la lista con íconos”.</p></div>
+</div>
+</section>
+<section class="slide zone-carbon" >
+<div class="eyebrow reveal">Y después</div>
+<h2 class="hero reveal d2">Carruseles <em>con Claude</em></h2>
+<p class="sub reveal d3">El mismo sistema, aplicado a tus carruseles.</p>
+</section>
+<section class="slide zone-blanco" >
+<div class="eyebrow reveal">Te llevás</div>
+<ul class="check reveal d2">
+<li>La guía paso a paso para armar tu editor.</li>
+<li>El prompt para tu Proyecto de Claude.</li>
+<li>El sistema de edición para subir a tu Proyecto.</li>
+<li>Tu ficha de estilo para completar.</li>
+<li>El mensaje modelo para pedir cada video.</li>
+</ul>
+</section>
+<section class="slide zone-lino" >
+<h2 class="big-quote reveal">Vos grabás.<br><em>Claude edita.</em><br>Vos dirigís.</h2>
+<p class="tag reveal d3">Julie Martínez · @soyjuliemartinez</p>
+</section>
+</main>
+<div id="dots"></div><div id="nav"><button id="prev" aria-label="Anterior">↑</button><button id="next" aria-label="Siguiente">↓</button></div>
+<div id="firma">Julie Martínez · <em>@soyjuliemartinez</em></div><div id="count"></div>
+<script>
+const deck=document.getElementById('deck'),S=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots'),cnt=document.getElementById('count');
+S.forEach((s,i)=>{const d=document.createElement('i');d.onclick=()=>go(i);dots.appendChild(d)});
+let cur=0;
+function go(i){cur=Math.max(0,Math.min(S.length-1,i));S[cur].scrollIntoView({behavior:'smooth'})}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>.55){e.target.classList.add('vis');cur=S.indexOf(e.target);
+ [...dots.children].forEach((d,j)=>d.classList.toggle('on',j===cur));cnt.textContent=String(cur+1).padStart(2,'0')+' / '+String(S.length).padStart(2,'0')}}),{root:deck,threshold:[.6]});
+S.forEach(s=>io.observe(s));
+document.addEventListener('keydown',e=>{if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+ if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+document.getElementById('prev').onclick=()=>go(cur-1);document.getElementById('next').onclick=()=>go(cur+1);
+</script></body></html>

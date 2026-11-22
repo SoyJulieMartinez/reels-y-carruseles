@@ -1,0 +1,23 @@
+{
+  "nombre": "Tu Nombre",
+  "usuario": "@tuusuario",
+  "colores": {
+    "claro": "#f5f1ea",
+    "blanco": "#ffffff",
+    "acento_suave": "#d9e4dc",
+    "medio": "#a9c1b1",
+    "acento": "#3f6b55",
+    "oscuro": "#1f2a24"
+  },
+  "tipografias": {
+    "sans": "Montserrat",
+    "acento": "Playfair Display"
+  },
+  "subtitulos": {
+    "palabras": 3,
+    "tamano": 104,
+    "y": 1250,
+    "mayusculas": false,
+    "resaltar_activa": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "objetivo": "Ventas",
+  "placas": [
+    {"tipo": "portada", "titulo": "Tu presencia digital es *malísima*", "apoyo": "y no sabés por dónde empezar", "foto": "TU-FOTO.jpg"},
+    {"tipo": "pregunta", "texto": "¿Sentís que necesitás un equipo entero para *existir* en redes?"},
+    {"tipo": "lista", "titulo": "Lo que te frena", "iconos": ["idea", "camara", "chat", "celular"], "items": ["¿Qué contenido subo?", "Mala calidad", "Sin micrófono", "¿Qué digo?"]},
+    {"tipo": "dato", "numero": "6 h", "texto": "una jornada ==presencial== conmigo, 1:1"},
+    {"tipo": "lista", "titulo": "Ejemplo: *tienda online*", "tildes": true, "items": ["La desarrollamos juntas", "Te enseño a subir productos", "Y seguís desde tu casa"]},
+    {"tipo": "respiro", "texto": "Lo que sea que necesites, *yo puedo ayudarte*"},
+    {"tipo": "cierre", "texto": "Jornada Estratégica 1:1", "accion": "Comentá *JORNADA*"}
+  ]
+}

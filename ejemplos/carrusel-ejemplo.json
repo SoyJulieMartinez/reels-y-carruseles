@@ -1,0 +1,12 @@
+{
+  "objetivo": "Guardados",
+  "placas": [
+    {"tipo": "portada", "titulo": "3 errores que hacen que nadie *guarde* tus carruseles"},
+    {"tipo": "texto", "titulo": "El problema no es el diseño", "texto": "Es que cada placa dice ==demasiado== y no se entiende en un segundo."},
+    {"tipo": "comparacion", "izq": {"titulo": "Así no", "items": ["Párrafos largos", "Todo destacado", "Sin cierre"]}, "der": {"titulo": "Así sí", "items": ["Una idea por placa", "Una sola palabra en color", "Una acción clara"]}},
+    {"tipo": "pasos", "titulo": "Probalo hoy", "items": ["Escribí la idea en una frase", "Elegí una sola palabra para destacar", "Cerrá con una acción"]},
+    {"tipo": "cita", "texto": "Si se tapa el nombre y se reconoce la marca, el diseño funciona.", "autor": "Regla anti-genérico"},
+    {"tipo": "chat", "titulo": "Lo que vas a empezar a recibir", "mensajes": [{"de": "ella", "texto": "¡Lo guardé para hacerlo mañana!"}, {"de": "yo", "texto": "¡Contame cómo te queda! 💛"}]},
+    {"tipo": "cierre", "texto": "¿Te sirvió?", "accion": "Guardalo para tu próximo carrusel"}
+  ]
+}
