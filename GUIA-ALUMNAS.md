@@ -33,6 +33,10 @@ Un buen video empieza en la grabación (más detalle en `docs/grabacion.md`):
 
 Todo se pide dentro de este Proyecto. En un chat suelto, Claude no conoce tu estilo.
 
+## La biblioteca de recursos
+
+Si no tenés referencias o no sabés qué pedir, abrí `biblioteca/biblioteca-de-recursos.html` del repositorio (descargalo y abrilo en tu navegador). Tiene todo lo que el sistema sabe hacer, por nombre: ritmo, tipos de video, estilos de hook y subtítulos, títulos, 51 efectos, transiciones, sonidos, colores, cierres, íconos y composiciones de carrusel. Tocás lo que te gusta, agregás una nota y copiás el pedido para pegarlo con tu video.
+
 ## Tu primer reel
 
 Abrí un chat nuevo dentro del Proyecto, adjuntá el video y pegá el mensaje de `plantillas/mensaje-para-pedir-un-video.txt`, completando lo que corresponda. Si no sabés qué recursos usar, escribí "no sé: proponeme opciones": Claude te muestra un muestrario con recursos aplicados a tu propio video y una tabla con opciones para cada momento.

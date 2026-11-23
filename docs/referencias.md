@@ -20,6 +20,10 @@ Si hay varias referencias que se contradicen, señalarlo y proponer una combinac
 
 ## 2. Si no tiene referencias o duda
 
+Primero, ofrecerle la **biblioteca de recursos** (`biblioteca/biblioteca-de-recursos.html`): elige por nombre el ritmo, el tipo de video, los efectos, los sonidos y el cierre, y pega el pedido con los códigos. Cada código está explicado en `docs/biblioteca-de-recursos.md`.
+
+Si prefiere ver antes de elegir:
+
 No preguntar "¿qué estilo querés?" en el aire. **Mostrar opciones:**
 
 - **Reel:** 3 portadas del mismo hook sobre su propio video, en 3 estilos:

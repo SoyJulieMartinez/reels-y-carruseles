@@ -29,6 +29,7 @@ Leé `docs/trabajo-agentico.md`: orquestador con **director, operador y revisor*
 | Animaciones complejas, mirar referencias en archivo | `docs/herramientas-extra.md` (instalar con `bash setup.sh --todo`) | HyperFrames, skills-edicion, Watch |
 | La persona no sabe qué recursos usar, o es su primer video | `docs/opciones-de-edicion.md` | `kit/muestrario.py` |
 | Antes de grabar, o el crudo tiene problemas | `docs/grabacion.md` | — |
+| La persona pide por códigos o nombres de la biblioteca (R3, F03, E-backdrop-word, SND-whoosh…), o no tiene referencias | `docs/biblioteca-de-recursos.md` (y ofrecerle `biblioteca/biblioteca-de-recursos.html`) | según cada código |
 | Referencias en links, o la persona no tiene o duda | `docs/referencias.md` | `kit/opciones.py` |
 | Pasar un reel a carruseles (solo si lo pide) | `docs/del-reel-a-carruseles.md` + `docs/carruseles.md` | `kit/carrusel.py` |
 

@@ -8,6 +8,7 @@ Creado por **Julie Martínez** · [@soyjuliemartinez](https://instagram.com/soyj
 
 ## Empezá por acá
 
+- **¿No sabés qué pedir?** Abrí la [biblioteca de recursos](biblioteca/biblioteca-de-recursos.html) (descargala y abrila en el navegador): elegís tipo de video, efectos, sonidos y cierre tocando, y te arma el pedido para copiar.
 - **Si sos alumna:** leé [GUIA-ALUMNAS.md](GUIA-ALUMNAS.md).
 - **Si vas a enseñarlo:** `clase/guia-para-ensenar.md` y las diapositivas `clase/clase-editar-reels-con-claude.html` (se abren en el navegador).
 
@@ -24,6 +25,8 @@ Creado por **Julie Martínez** · [@soyjuliemartinez](https://instagram.com/soyj
 | `docs/grabacion.md` | Cómo grabar para que la edición luzca: luz, fondo, encuadre, banco de tomas de apoyo |
 | `docs/opciones-de-edicion.md` | Cómo te propone Claude recursos de edición para cada momento de tu video |
 | `docs/referencias.md` | Cómo usa Claude tus links de referencia, y qué opciones te muestra si no tenés o dudás |
+| `biblioteca/` | La biblioteca de recursos: todo lo que el sistema sabe hacer, para elegir por nombre (242 recursos) |
+| `docs/biblioteca-de-recursos.md` | La misma biblioteca para Claude: qué es cada código y con qué se hace |
 | `docs/motor.md` | Todas las funciones del motor |
 | `kit/` | El motor: subtítulos, títulos, tarjetas, íconos, sonidos, opciones, muestrario, revisión y carruseles en PNG y PDF |
 | `efectos/` | 51 efectos que siguen la cara: texto detrás de la persona, órbitas, widgets, cajas de comentario y más |

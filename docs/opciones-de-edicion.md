@@ -42,6 +42,10 @@ Reglas para la tabla:
 
 ## Menú completo de recursos
 
+La lista completa, con un código para cada recurso, está en `docs/biblioteca-de-recursos.md` (y para la persona, en `biblioteca/biblioteca-de-recursos.html`). En la tabla de opciones, nombrá cada recurso igual que en la biblioteca y con su código, así puede responder "cambiá la 3 por E-huge-strike".
+
+Resumen:
+
 Para la tabla se puede elegir de cualquiera de estas fuentes. Todo se adapta a la marca.
 
 **Motor (`kit/reel.py`), sin instalar nada más:**
