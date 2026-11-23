@@ -4,6 +4,16 @@ Al terminar vas a tener, en Claude, tu propia editora de reels y diseñadora de 
 
 **Vos no editás: dirigís.** Claude hace el trabajo y vos decidís cómo se ve tu marca, revisás y pedís cambios.
 
+## La forma más fácil (sin leer nada)
+
+Abrí un chat en Claude y escribí:
+
+> Instalá esto https://github.com/SoyJulieMartinez/reels-y-carruseles y decime paso a paso cómo editar un reel
+
+(o "diseñar un carrusel"). Claude instala todo y te va guiando de a un paso. Si preferís no hacer nada de pasos, subí tu video al chat, escribí "editalo con este sistema" y pasale tu logo o tus colores cuando te los pida.
+
+El resto de esta guía es para cuando quieras dejar todo armado en un Proyecto y que salga todavía mejor.
+
 ## Qué necesitás
 
 - [ ] Una cuenta de Claude (sirve la gratuita; con un plan pago podés hacer más videos por día).

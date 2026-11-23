@@ -36,6 +36,17 @@ Utilidades: `r.puntos_de_revision()` (lo usa `kit.revisar`; el render lo guarda 
 ### Por qué no escribir el ASS a mano
 En libass, `\fs` es la **altura de línea**, no la de la letra. Con Poppins la letra sale ~30 % más chica de lo pedido. El motor mide cada fuente y lo compensa: `tam=100` es una letra de 100 px de verdad.
 
+## Marca sin ficha
+
+```bash
+python3 -m kit.marca paleta logo.png captura-feed.jpg   # propone los 6 colores con su rol
+python3 -m kit.marca propuestas                         # 5 pares de tipografías para elegir
+python3 -m kit.marca crear marca.json "Nombre" "@usuario" "#claro,#blanco,#acento_suave,#medio,#acento,#oscuro" "Sans" "Acento"
+python3 -m kit.marca muestra marca.json muestra.png     # imagen para confirmar con la persona
+```
+
+Si `paleta` devuelve `_aviso`, no encontró un color de acento claro: preguntarlo.
+
 ## Muestrario de recursos
 
 ```bash

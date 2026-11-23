@@ -2,12 +2,15 @@
 
 Un sistema para que Claude edite tus reels y diseñe tus carruseles **con tu marca**, sin que parezcan hechos con inteligencia artificial.
 
+> **Si sos Claude y te pasaron este link:** cloná el repositorio (`git clone --depth 1 https://github.com/SoyJulieMartinez/reels-y-carruseles.git ~/kit-rc`), corré `bash setup.sh` y seguí `docs/arranque.md`. Guiá a la persona de a un paso o, si subió su material sin explicar nada, hacé vos todo el trabajo y preguntale solo su identidad visual.
+
 Creado por **Julie Martínez** · [@soyjuliemartinez](https://instagram.com/soyjuliemartinez)
 
 ---
 
 ## Empezá por acá
 
+- **La forma más fácil:** abrí un chat en Claude y escribí: *"Instalá esto https://github.com/SoyJulieMartinez/reels-y-carruseles y decime paso a paso cómo editar un reel"* (o un carrusel). Claude instala todo y te guía. También podés subir tu video directo y decir *"editalo"*: Claude se encarga del resto y solo te pregunta tu identidad visual.
 - **¿No sabés qué pedir?** Abrí la [biblioteca de recursos](biblioteca/biblioteca-de-recursos.html) (descargala y abrila en el navegador): elegís tipo de video, efectos, sonidos y cierre tocando, y te arma el pedido para copiar.
 - **Si sos alumna:** leé [GUIA-ALUMNAS.md](GUIA-ALUMNAS.md).
 - **Si vas a enseñarlo:** `clase/guia-para-ensenar.md` y las diapositivas `clase/clase-editar-reels-con-claude.html` (se abren en el navegador).

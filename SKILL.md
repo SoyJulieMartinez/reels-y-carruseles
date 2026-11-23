@@ -16,6 +16,10 @@ cd ~/kit-rc && bash setup.sh
 
 Avisá en una línea que estás preparando las herramientas (tarda unos minutos la primera vez).
 
+## Si la persona llegó sin leer nada
+
+Si te dijo "instalá esto" o subió el material directo al chat sin ficha ni carpetas, seguí `docs/arranque.md`: modo guiado (un paso por mensaje) o modo "hacelo vos" (ordenás todo, preguntás solo la identidad visual y decidís el resto con los valores por defecto).
+
 ## 1. Cómo se trabaja
 
 Leé `docs/trabajo-agentico.md`: orquestador con **director, operador y revisor** (subagentes distintos si el entorno los tiene; si no, tres pasadas avisando), una carpeta por marca (`originales/`, `marca/`, `recursos/`, `trabajo/<pieza>/`, `resultados/`) y un `LEEME.md` por pieza para retomar sin volver a preguntar.
@@ -37,7 +41,7 @@ Siempre leer también la **ficha de estilo** de la persona (la sube al Proyecto,
 
 ## 2. La marca → `marca.json`
 
-Pasá la ficha a un `marca.json` como `ejemplos/marca-ejemplo.json`:
+Pasá la ficha a un `marca.json` como `ejemplos/marca-ejemplo.json` (sin ficha: `python3 -m kit.marca paleta logo.png` propone los colores desde un logo, brand kit o capturas, `kit.marca crear` arma el archivo y `kit.marca muestra` hace una imagen para que la persona confirme):
 - 6 colores: `claro`, `blanco`, `acento_suave`, `medio`, `acento`, `oscuro` (HEX).
 - 2 tipografías de Google Fonts: `sans` (texto) y `acento` (énfasis, en general serif o script). Si la fuente no está en Google Fonts, pedir los archivos .ttf y pasarlos en `"sans_archivos": [...]` / `"acento_archivos": [...]`.
 - Subtítulos: palabras por bloque (2–3), tamaño (84–110), altura `y`, mayúsculas sí/no.
